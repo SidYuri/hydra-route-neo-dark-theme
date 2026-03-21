@@ -320,6 +320,12 @@
             filter: invert(1) brightness(0.8) !important;
         }
 
+        /* ── Иконки info ── */
+        img.config-info-icon,
+        .description-toggle img {
+            filter: invert(1) opacity(0.5) !important;
+        }
+
         /* ── Скроллбары ── */
         textarea { scrollbar-width: thin; scrollbar-color: #3d5073 transparent; }
         textarea::-webkit-scrollbar { width: 4px; }
