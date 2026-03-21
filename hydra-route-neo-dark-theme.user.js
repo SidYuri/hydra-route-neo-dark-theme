@@ -221,6 +221,55 @@
             border-color: #0097dc !important;
         }
 
+        /* ── Страница информации ── */
+        .info-content h2,
+        .info-content h3 {
+            color: #c8d0d8 !important;
+            font-weight: 600 !important;
+        }
+        .info-content li,
+        .info-content p {
+            color: #8d97a5 !important;
+        }
+        .info-content code {
+            background: rgba(0,151,220,0.12) !important;
+            color: #7ec8e3 !important;
+            padding: 1px 5px !important;
+            border-radius: 3px !important;
+        }
+        .info-content pre {
+            background: #0d1520 !important;
+            color: #8d97a5 !important;
+            border: 1px solid #2e3d57 !important;
+            border-radius: 4px !important;
+            padding: 10px 14px !important;
+        }
+        .diag-command {
+            background: #0d1520 !important;
+            color: #7ec8e3 !important;
+            border: 1px solid #2e3d57 !important;
+            border-radius: 4px !important;
+            padding: 4px 10px !important;
+        }
+        .info-content a {
+            color: #5b9bd5 !important;
+            text-decoration: none !important;
+        }
+        .info-content a:hover {
+            color: #7eb8f0 !important;
+            text-decoration: underline !important;
+        }
+        .info-content summary {
+            color: #8d97a5 !important;
+            cursor: pointer !important;
+        }
+        .info-content details {
+            color: #8d97a5 !important;
+        }
+        .info-content summary:hover {
+            color: #a8b2bd !important;
+        }
+
         /* ── Переключатели ── */
         /* OFF-состояние: тёмный нейтральный вместо светло-серого */
         .domain-checkbox {
