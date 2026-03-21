@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hydra Route Neo — Keenetic Dark Theme
 // @namespace    http://tampermonkey.net/
-// @version      0.02
+// @version      0.03
 // @description  Тёмная тема для Hydra Route Neo в стиле Keenetic. Beta.
 // @author       SidYuri
 // @include      http://192.168.*:2000/*
@@ -170,6 +170,55 @@
             border: 1px solid rgba(180,140,0,0.25) !important;
             border-radius: 6px !important;
             color: #c2c2c2 !important;
+        }
+
+        /* ── Прокси: карточки интерфейсов ── */
+        .proxy-interface-tile {
+            background-color: #1b2434 !important;
+            border: 1px solid #4d545f !important;
+            color: #c2c2c2 !important;
+        }
+        .proxy-interface-tile .interface-name {
+            color: #c2c2c2 !important;
+        }
+        .proxy-interface-tile img {
+            filter: invert(0.7) !important;
+        }
+
+        /* ── Прокси: JSON редактор ── */
+        .proxy-json-editor-container {
+            background-color: #161c27 !important;
+        }
+        .json-editor-lines {
+            background-color: #161c27 !important;
+        }
+        .json-line-number {
+            color: #4d545f !important;
+        }
+        .json-bracket-match {
+            background-color: rgba(0,151,220,0.45) !important;
+            outline: 1px solid rgba(0,151,220,1) !important;
+        }
+        .json-editor-textarea {
+            caret-color: #c2c2c2 !important;
+            color: #c2c2c2 !important;
+            background: transparent !important;
+        }
+        .json-editor-textarea::selection {
+            background-color: rgba(0,151,220,0.4) !important;
+            color: #ffffff !important;
+        }
+
+        /* ── Прокси: JSON вкладки ── */
+        .proxy-json-tab {
+            background-color: #2e3d57 !important;
+            color: #949b9f !important;
+            border-color: #4d545f !important;
+        }
+        .proxy-json-tab.active {
+            background-color: #0097dc !important;
+            color: #ffffff !important;
+            border-color: #0097dc !important;
         }
 
         /* ── Переключатели ── */
