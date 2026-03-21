@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hydra Route Neo — Keenetic Dark Theme
 // @namespace    http://tampermonkey.net/
-// @version      0.03
+// @version      0.05
 // @description  Тёмная тема для Hydra Route Neo в стиле Keenetic. Beta.
 // @author       SidYuri
 // @include      http://192.168.*:2000/*
@@ -41,6 +41,10 @@
             --color-error-light:    rgba(222,61,61,0.12) !important;
             --color-success:        #25c47a !important;
             --color-success-light:  rgba(37,196,120,0.12) !important;
+        }
+
+        body {
+            color: #949b9f !important;
         }
 
         header {
