@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hydra Route Neo — Keenetic Dark Theme
 // @namespace    http://tampermonkey.net/
-// @version      0.01
+// @version      0.02
 // @description  Тёмная тема для Hydra Route Neo в стиле Keenetic. Beta.
 // @author       SidYuri
 // @include      http://192.168.*:2000/*
@@ -132,6 +132,17 @@
         .add-field-btn:hover, .dashboard-button:hover, .proxy-tab:hover {
             background-color: #3d5073 !important;
         }
+
+        /* ── Кнопки-действия с акцентом (Сохранить) ── */
+        #dashboard-save, .btn-primary {
+            background-color: #0097dc !important;
+            border-color: #0097dc !important;
+            color: #ffffff !important;
+        }
+        #dashboard-save:hover, .btn-primary:hover {
+            background-color: #007ab3 !important;
+            border-color: #007ab3 !important;
+        }
         .btn-secondary {
             background-color: #2e3d57 !important;
             border-color: #4d545f !important;
@@ -159,6 +170,23 @@
             border: 1px solid rgba(180,140,0,0.25) !important;
             border-radius: 6px !important;
             color: #c2c2c2 !important;
+        }
+
+        /* ── Переключатели ── */
+        /* OFF-состояние: тёмный нейтральный вместо светло-серого */
+        .domain-checkbox {
+            background-color: #3d4a5a !important;
+        }
+        /* ON-состояние: синий акцент */
+        .domain-entry input:checked ~ .domain-checkbox {
+            background-color: #0097dc !important;
+        }
+        /* geo-toggle (авто-обновление) */
+        .geo-toggle-slider {
+            background-color: #3d4a5a !important;
+        }
+        .geo-toggle input:checked ~ .geo-toggle-slider {
+            background-color: #0097dc !important;
         }
 
         /* ── Логотип в шапке ── */
