@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hydra Route Neo — Keenetic Dark Theme
 // @namespace    http://tampermonkey.net/
-// @version      0.07
+// @version      0.08
 // @description  Тёмная тема для Hydra Route Neo в стиле Keenetic. Beta.
 // @author       SidYuri
 // @include      http://192.168.*:2000/*
@@ -21,6 +21,37 @@
 
     // ─── Основная тёмная тема ────────────────────────────────────────────────
     const DARK_CSS = `
+        /* ── v1.16: Keenetic palette через data-theme ── */
+        [data-theme="dark"] {
+            --color-text-primary:   #c2c2c2 !important;
+            --color-text-secondary: #949b9f !important;
+            --color-bg-primary:     #1b2434 !important;
+            --color-bg-secondary:   #161c27 !important;
+            --color-bg-tertiary:    #2e3d57 !important;
+            --color-border-light:   #4d545f !important;
+            --color-border-medium:  #4d545f !important;
+            --color-primary:        #0097dc !important;
+            --color-primary-hover:  #007ab3 !important;
+            --color-primary-light:  rgba(0,151,220,0.15) !important;
+            --color-shadow:         rgba(0,0,0,0.4) !important;
+            --color-shadow-medium:  rgba(0,0,0,0.5) !important;
+            --color-overlay:        rgba(0,0,0,0.7) !important;
+            --color-error:          #de3d3d !important;
+            --color-error-light:    rgba(222,61,61,0.12) !important;
+            --color-success:        #25c47a !important;
+            --color-success-light:  rgba(37,196,120,0.12) !important;
+        }
+
+        /* ── v1.16: Стиль встроенного переключателя темы ── */
+        #theme-toggle {
+            border-color: #4d545f !important;
+            color: #c2c2c2 !important;
+        }
+        #theme-toggle:hover {
+            border-color: #0097dc !important;
+            color: #0097dc !important;
+        }
+
         :root {
             --color-text-primary:   #c2c2c2 !important;
             --color-text-secondary: #949b9f !important;
@@ -308,6 +339,64 @@
                 0 0 28px rgba(0,212,255,0.4) !important;
         }
 
+        /* ── v1.16: .neo-text (логотип, уже в DOM) ── */
+        a.header-link .neo-text,
+        .DIV-1 .neo-text {
+            color: #00d4ff !important;
+            font-style: italic !important;
+            text-shadow:
+                0 0 6px rgba(0,212,255,1),
+                0 0 14px rgba(0,212,255,0.7),
+                0 0 28px rgba(0,212,255,0.4) !important;
+        }
+
+        /* ── v1.16: Подзаголовок и метрики ── */
+        .subtitle { color: #949b9f !important; }
+        .metric-label { color: #6f737b !important; }
+        .metric-value { color: #c2c2c2 !important; }
+        .header-metrics { color: #949b9f !important; }
+
+        /* ── v1.16: Карточки политик ── */
+        .policy-card {
+            background-color: #161c27 !important;
+            border: 1px solid #4d545f !important;
+            color: #c2c2c2 !important;
+        }
+        .policy-card-header {
+            border-bottom: 1px solid #4d545f !important;
+        }
+        .policy-card-name,
+        .policy-card-connection { color: #949b9f !important; }
+        .policy-swap-btn {
+            background-color: #2e3d57 !important;
+            border-color: #4d545f !important;
+            color: #c2c2c2 !important;
+        }
+        .policy-swap-btn:hover { background-color: #3d5073 !important; }
+
+        /* ── v1.16: Кнопка опасного действия ── */
+        .btn-danger, .btn.btn-danger {
+            background-color: #de3d3d !important;
+            border-color: #de3d3d !important;
+            color: #ffffff !important;
+        }
+        .btn-danger:hover, .btn.btn-danger:hover {
+            background-color: #b83030 !important;
+            border-color: #b83030 !important;
+        }
+
+        /* ── v1.16: Вкладки типа прокси ── */
+        .proxy-type-tab {
+            background-color: #2e3d57 !important;
+            color: #949b9f !important;
+            border-color: #4d545f !important;
+        }
+        .proxy-type-tab.active {
+            background-color: #0097dc !important;
+            color: #ffffff !important;
+            border-color: #0097dc !important;
+        }
+
         /* ── Футер-кнопки (GitHub, версия, Donate) ── */
         .button-container button {
             background-color: #2e3d57 !important;
@@ -446,14 +535,68 @@
                 position: relative !important;
             }
         }
+
+        /* ── v1.16: Обёртка поля ввода (Material-style) ── */
+        .NDW-INPUT-1 {
+            border-bottom: 1px solid #4d545f !important;
+        }
+        .NDW-INPUT-1:focus-within {
+            border-bottom-color: #0097dc !important;
+        }
+
+        /* ── v1.16: Поле пароля ── */
+        .INPUT-PASSWORD {
+            background: #1b2434 !important;
+            background-color: #1b2434 !important;
+            color: #c2c2c2 !important;
+            border: 1px solid #4d545f !important;
+            -webkit-box-shadow: 0 0 0 9999px #1b2434 inset !important;
+            box-shadow: 0 0 0 9999px #1b2434 inset !important;
+            -webkit-text-fill-color: #c2c2c2 !important;
+            caret-color: #c2c2c2 !important;
+        }
+        .INPUT-PASSWORD:-webkit-autofill,
+        .INPUT-PASSWORD:-webkit-autofill:hover,
+        .INPUT-PASSWORD:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0 9999px #1b2434 inset !important;
+            box-shadow: 0 0 0 9999px #1b2434 inset !important;
+            -webkit-text-fill-color: #c2c2c2 !important;
+        }
+
+        /* ── v1.16: Кнопка «Войти» ── */
+        .BUTTON-0 {
+            background-color: #0097dc !important;
+            border-color: #0097dc !important;
+            color: #ffffff !important;
+            width: 100% !important;
+        }
+        .BUTTON-0:hover {
+            background-color: #007ab3 !important;
+            border-color: #007ab3 !important;
+        }
     `;
 
     // ─── Применение темы ─────────────────────────────────────────────────────
     let darkEnabled = GM_getValue('darkEnabled', true);
 
+    // Определяем v1.16+ по наличию data-theme на <html>, #theme-toggle или нового класса логина
+    const isV116 = () =>
+        document.documentElement.hasAttribute('data-theme') ||
+        !!document.querySelector('#theme-toggle') ||
+        !!document.querySelector('.NDW-FORM-0');
+
     function applyTheme() {
         document.getElementById('keenetic-dark-theme')?.remove();
         document.getElementById('login-autofill-fix')?.remove();
+
+        if (isV116()) {
+            // v1.16: синхронизируем data-theme с нашим сохранённым состоянием
+            // (только если не совпадает, чтобы не зациклить MutationObserver)
+            const wanted = darkEnabled ? 'dark' : 'light';
+            if (document.documentElement.getAttribute('data-theme') !== wanted) {
+                document.documentElement.setAttribute('data-theme', wanted);
+            }
+        }
 
         if (!darkEnabled) return;
 
@@ -464,6 +607,20 @@
         document.head.appendChild(style);
 
         if (isLogin) applyLoginJS();
+    }
+
+    // ─── v1.16: Синхронизация с встроенной кнопкой переключения ─────────────
+    function watchV116Theme() {
+        const htmlEl = document.documentElement;
+        const observer = new MutationObserver(() => {
+            const isDark = htmlEl.getAttribute('data-theme') === 'dark';
+            if (isDark !== darkEnabled) {
+                darkEnabled = isDark;
+                GM_setValue('darkEnabled', darkEnabled);
+                applyTheme();
+            }
+        });
+        observer.observe(htmlEl, { attributes: true, attributeFilter: ['data-theme'] });
     }
 
     function applyLoginJS() {
@@ -484,7 +641,7 @@
             const bodyStyle = document.createElement('style');
             bodyStyle.id = 'login-autofill-fix';
             bodyStyle.textContent = `
-                #login, #password, .INPUT-1 {
+                #login, #password, .INPUT-1, .INPUT-PASSWORD {
                     -webkit-box-shadow: 0 0 0 9999px #1b2434 inset !important;
                     box-shadow: 0 0 0 9999px #1b2434 inset !important;
                     -webkit-text-fill-color: #c2c2c2 !important;
@@ -498,7 +655,8 @@
                     color: #949b9f !important;
                 }
                 #login:-webkit-autofill, #password:-webkit-autofill,
-                .INPUT-1:-webkit-autofill, input:-webkit-autofill,
+                .INPUT-1:-webkit-autofill, .INPUT-PASSWORD:-webkit-autofill,
+                input:-webkit-autofill,
                 input:-webkit-autofill:hover, input:-webkit-autofill:focus,
                 input:-webkit-autofill:active {
                     -webkit-box-shadow: 0 0 0 9999px #1b2434 inset !important;
@@ -515,13 +673,17 @@
 
     // ─── Стилизация логотипа в шапке ─────────────────────────────────────────
     function styleHeaderLogo() {
+        // v1.16: .neo-text уже в DOM, стилизуется через CSS — ничего не нужно
+        if (isV116()) return;
+        // Старая версия: инжектируем .neo-glow вручную
         const link = document.querySelector('header h1 a.header-link');
         if (!link || link.querySelector('.neo-glow')) return;
         link.innerHTML = link.innerHTML.replace('Neo', '<span class="neo-glow">Neo</span>');
     }
 
-    // ─── Кнопка переключения (верхний правый угол) ───────────────────────────
+    // ─── Кнопка переключения (верхний правый угол, только для старой версии) ──
     function addToggleButton() {
+        if (isV116()) return; // v1.16 использует встроенную кнопку #theme-toggle
         if (document.getElementById('theme-toggle-btn')) return;
 
         const btn = document.createElement('button');
@@ -572,7 +734,11 @@
     // ─── Инициализация ───────────────────────────────────────────────────────
     function init() {
         applyTheme();
-        addToggleButton();
+        if (isV116()) {
+            watchV116Theme(); // v1.16: следим за встроенной кнопкой
+        } else {
+            addToggleButton(); // старая версия: своя кнопка
+        }
         styleHeaderLogo();
     }
 
@@ -589,7 +755,7 @@
             lastPath = location.pathname;
             setTimeout(() => {
                 applyTheme();
-                addToggleButton();
+                if (!isV116()) addToggleButton();
                 styleHeaderLogo();
             }, 200);
         }
