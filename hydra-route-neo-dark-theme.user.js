@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hydra Route Neo — Keenetic Dark Theme
 // @namespace    http://tampermonkey.net/
-// @version      0.08
+// @version      0.09
 // @description  Тёмная тема для Hydra Route Neo в стиле Keenetic. Beta.
 // @author       SidYuri
 // @include      http://192.168.*:2000/*
@@ -576,6 +576,57 @@
         }
     `;
 
+    // ─── Лейаут: адаптивный грид (применяется всегда, независимо от темы) ────
+    const LAYOUT_CSS = `
+        /* Снимаем ограничение ширины */
+        .dashboard-policies-list,
+        .dashboard-create-buttons { max-width: none !important; }
+
+        /* Адаптивный грид групп доменов */
+        .policy-card-content-inner {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(min(380px, 100%), 1fr)) !important;
+            flex-direction: unset !important;
+            align-items: start !important;
+        }
+
+        /* Карточка группы — на всю ширину ячейки */
+        div.domain-entry {
+            width: 100% !important;
+            box-sizing: border-box !important;
+            min-width: 0 !important;
+        }
+
+        /* Textarea группы — на всю ширину */
+        div.domain-entry textarea {
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Название группы — не обрезать */
+        .domain-header > *:not(button) {
+            min-width: max-content !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+        }
+
+        /* Кнопка «+ поле» — по верхнему краю ячейки */
+        .add-field-btn { align-self: start !important; }
+
+        /* Развёрнутая карточка — без ограничения высоты */
+        .policy-card:not(.policy-card--collapsed) .policy-card-content {
+            max-height: none !important;
+            overflow: visible !important;
+        }
+
+        /* Скроллбары — светлая тема */
+        *::-webkit-scrollbar { width: 6px; height: 6px; }
+        *::-webkit-scrollbar-track { background: #ebebeb; border-radius: 3px; }
+        *::-webkit-scrollbar-thumb { background: #c0c0c0; border-radius: 3px; }
+        *::-webkit-scrollbar-thumb:hover { background: #2396da; }
+        *::-webkit-scrollbar-corner { background: #ebebeb; }
+    `;
+
     // ─── Применение темы ─────────────────────────────────────────────────────
     let darkEnabled = GM_getValue('darkEnabled', true);
 
@@ -587,7 +638,16 @@
 
     function applyTheme() {
         document.getElementById('keenetic-dark-theme')?.remove();
+        document.getElementById('keenetic-layout')?.remove();
         document.getElementById('login-autofill-fix')?.remove();
+
+        // Лейаут — всегда, на любой странице кроме логина
+        if (!window.location.pathname.startsWith('/login')) {
+            const layout = document.createElement('style');
+            layout.id = 'keenetic-layout';
+            layout.textContent = LAYOUT_CSS;
+            document.head.appendChild(layout);
+        }
 
         if (isV116()) {
             // v1.16: синхронизируем data-theme с нашим сохранённым состоянием
@@ -671,6 +731,39 @@
         setTimeout(tryFix, 300);
     }
 
+    // ─── Заметка в настройках о чекбоксе «Две колонки» ──────────────────────
+    function annotateColumnsCheckbox() {
+        if (document.getElementById('keenetic-columns-note')) return;
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        let node;
+        while (node = walker.nextNode()) {
+            if (node.textContent.includes('колонки групп')) break;
+            node = null;
+        }
+        if (!node) return;
+        const section = node.parentElement.closest('.settings-section');
+        if (!section) return;
+
+        const note = document.createElement('div');
+        note.id = 'keenetic-columns-note';
+        note.style.cssText = `
+            margin-top: 8px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            background: rgba(0,151,220,0.1);
+            border: 1px solid rgba(0,151,220,0.3);
+            color: #7ec8e3;
+            line-height: 1.5;
+        `;
+        note.innerHTML = '⚡ При активной <a href="https://github.com/SidYuri/hydra-route-neo-dark-theme" target="_blank" '
+            + 'style="color:#0097dc;text-decoration:none;">теме в стиле Keenetic</a> от '
+            + '<a href="https://t.me/SidYuri" target="_blank" '
+            + 'style="color:#0097dc;text-decoration:none;">@SidYuri</a>'
+            + ' этот параметр не используется — применяется динамический адаптивный грид.';
+        section.appendChild(note);
+    }
+
     // ─── Стилизация логотипа в шапке ─────────────────────────────────────────
     function styleHeaderLogo() {
         // v1.16: .neo-text уже в DOM, стилизуется через CSS — ничего не нужно
@@ -740,6 +833,7 @@
             addToggleButton(); // старая версия: своя кнопка
         }
         styleHeaderLogo();
+        annotateColumnsCheckbox();
     }
 
     if (document.readyState === 'loading') {
@@ -757,6 +851,7 @@
                 applyTheme();
                 if (!isV116()) addToggleButton();
                 styleHeaderLogo();
+                annotateColumnsCheckbox();
             }, 200);
         }
     });
