@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hydra Route Neo — Keenetic Dark Theme
 // @namespace    http://tampermonkey.net/
-// @version      0.10
+// @version      0.11
 // @description  Тёмная тема для Hydra Route Neo в стиле Keenetic. Beta.
 // @author       SidYuri
 // @include      http://192.168.*:2000/*
@@ -658,21 +658,35 @@
             box-sizing: border-box !important;
         }
 
-        /* GeoIP/GeoSite: 2 колонки для строк и полей */
+        /* Основной контент: учитывать padding в ширине */
+        .main-content {
+            box-sizing: border-box !important;
+            min-width: 0 !important;
+        }
+
+        /* GeoIP/GeoSite: одна колонка по умолчанию (мобильные) */
+        .geo-files-content,
         .geo-files-content > div:first-child {
-            display: grid !important;
-            grid-template-columns: 1fr 1fr !important;
-            gap: 8px !important;
+            display: block !important;
         }
-        .geo-files-content {
-            display: grid !important;
-            grid-template-columns: 1fr 1fr !important;
-            gap: 12px !important;
-            align-items: start !important;
-        }
-        .geo-files-content > div:first-child,
-        .geo-autoupdate {
-            grid-column: 1 / -1 !important;
+
+        /* GeoIP/GeoSite: 2 колонки для строк и полей */
+        @media (min-width: 700px) {
+            .geo-files-content > div:first-child {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 8px !important;
+            }
+            .geo-files-content {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 12px !important;
+                align-items: start !important;
+            }
+            .geo-files-content > div:first-child,
+            .geo-autoupdate {
+                grid-column: 1 / -1 !important;
+            }
         }
         .geo-file-row { border-bottom: none !important; }
         .geo-autoupdate { border-top: none !important; }
@@ -681,7 +695,7 @@
         .hrneo-config-form {
             width: 100% !important;
             max-width: none !important;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)) !important;
+            grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr)) !important;
         }
 
         /* Скроллбары — светлая тема */
