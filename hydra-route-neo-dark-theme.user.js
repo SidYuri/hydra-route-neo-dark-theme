@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hydra Route Neo — Keenetic Dark Theme
 // @namespace    http://tampermonkey.net/
-// @version      0.09
+// @version      0.10
 // @description  Тёмная тема для Hydra Route Neo в стиле Keenetic. Beta.
 // @author       SidYuri
 // @include      http://192.168.*:2000/*
@@ -617,6 +617,71 @@
         .policy-card:not(.policy-card--collapsed) .policy-card-content {
             max-height: none !important;
             overflow: visible !important;
+        }
+
+        /* Адаптивный flex-грид страницы Настройки */
+        .settings-content:not([style*="display: none"]) {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 16px !important;
+            align-items: stretch !important;
+        }
+        .settings-content .description-container {
+            flex: 0 0 100% !important;
+        }
+        .settings-section {
+            flex: 1 1 480px !important;
+            max-width: none !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+        }
+
+        /* Прокси: контейнер плиток интерфейсов на всю ширину */
+        div:has(> .proxy-interface-tile) {
+            width: 100% !important;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 350px)) !important;
+        }
+
+        /* Страница Hydra Route: секции на всю ширину */
+        .hrneo-settings-section {
+            display: flex !important;
+            flex-direction: column !important;
+            width: 100% !important;
+        }
+        .geo-files-section,
+        .danger-zone {
+            width: 100% !important;
+            max-width: none !important;
+            box-sizing: border-box !important;
+        }
+
+        /* GeoIP/GeoSite: 2 колонки для строк и полей */
+        .geo-files-content > div:first-child {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 8px !important;
+        }
+        .geo-files-content {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 12px !important;
+            align-items: start !important;
+        }
+        .geo-files-content > div:first-child,
+        .geo-autoupdate {
+            grid-column: 1 / -1 !important;
+        }
+        .geo-file-row { border-bottom: none !important; }
+        .geo-autoupdate { border-top: none !important; }
+
+        /* Danger Zone: адаптивный грид полей */
+        .hrneo-config-form {
+            width: 100% !important;
+            max-width: none !important;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)) !important;
         }
 
         /* Скроллбары — светлая тема */
