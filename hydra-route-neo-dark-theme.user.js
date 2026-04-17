@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hydra Route Neo — Keenetic Dark Theme
 // @namespace    http://tampermonkey.net/
-// @version      0.11
+// @version      0.12
 // @description  Тёмная тема для Hydra Route Neo в стиле Keenetic. Beta.
 // @author       SidYuri
 // @include      http://192.168.*:2000/*
@@ -646,13 +646,16 @@
         }
 
         /* Страница Hydra Route: секции на всю ширину */
+        /* v1.20: .hrneo-settings-section получил max-width:580px в стоке — снимаем */
         .hrneo-settings-section {
             display: flex !important;
             flex-direction: column !important;
             width: 100% !important;
+            max-width: none !important;
         }
         .geo-files-section,
-        .danger-zone {
+        .danger-zone,
+        .diag-section {
             width: 100% !important;
             max-width: none !important;
             box-sizing: border-box !important;
