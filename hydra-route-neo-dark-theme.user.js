@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hydra Route Neo — Keenetic Dark Theme
 // @namespace    http://tampermonkey.net/
-// @version      0.12
+// @version      0.13
 // @description  Тёмная тема для Hydra Route Neo в стиле Keenetic. Beta.
 // @author       SidYuri
 // @include      http://192.168.*:2000/*
@@ -50,6 +50,16 @@
         #theme-toggle:hover {
             border-color: #0097dc !important;
             color: #0097dc !important;
+        }
+
+        /* ── v1.20+: Снимаем неоновое свечение (триплет cyan box-shadow) ── */
+        /* Эффект задаётся стоковым variables.css на data-theme="dark" */
+        [data-theme="dark"] .btn-primary,
+        [data-theme="dark"] #dashboard-save,
+        [data-theme="dark"] #dashboard-reset,
+        [data-theme="dark"] .dashboard-add-buttons button,
+        [data-theme="dark"] .modal-content button:not(:disabled) {
+            box-shadow: none !important;
         }
 
         :root {
@@ -220,6 +230,18 @@
             filter: invert(0.7) !important;
         }
 
+        /* ── v1.20+: Статус интерфейса и пинг — палитра Keenetic ── */
+        .interface-status.enabled  { color: #25c47a !important; }
+        .interface-status.disabled { color: #6f737b !important; }
+        .interface-server-ping.ping-status--good { color: #25c47a !important; }
+        .interface-server-ping.ping-status--bad  { color: #de3d3d !important; }
+        .interface-server-ping.ping-status--good .server-ping-icon {
+            filter: invert(64%) sepia(53%) saturate(465%) hue-rotate(101deg) brightness(91%) contrast(85%) !important;
+        }
+        .interface-server-ping.ping-status--bad .server-ping-icon {
+            filter: invert(35%) sepia(85%) saturate(2700%) hue-rotate(343deg) brightness(85%) contrast(95%) !important;
+        }
+
         /* ── Прокси: JSON редактор ── */
         .proxy-json-editor-container {
             background-color: #161c27 !important;
@@ -374,15 +396,93 @@
         }
         .policy-swap-btn:hover { background-color: #3d5073 !important; }
 
-        /* ── v1.16: Кнопка опасного действия ── */
+        /* ── v1.16: Кнопки опасного действия и primary — Keenetic outline ── */
+        .btn.btn-primary {
+            background-color: transparent !important;
+            border: 2px solid #0097dc !important;
+            color: #0097dc !important;
+            font-weight: 700 !important;
+            box-shadow: none !important;
+        }
+        .btn.btn-primary:hover {
+            background-color: rgba(0,151,220,0.1) !important;
+        }
         .btn-danger, .btn.btn-danger {
-            background-color: #de3d3d !important;
-            border-color: #de3d3d !important;
-            color: #ffffff !important;
+            background-color: transparent !important;
+            border: 2px solid #de3d3d !important;
+            color: #de3d3d !important;
+            box-shadow: none !important;
         }
         .btn-danger:hover, .btn.btn-danger:hover {
-            background-color: #b83030 !important;
-            border-color: #b83030 !important;
+            background-color: rgba(222,61,61,0.1) !important;
+        }
+
+        /* ── Keenetic-style кнопки ── */
+        /* Outline (Экспорт, Импорт) */
+        [data-theme="dark"] .btn-outline,
+        [data-theme="dark"] .btn.btn-outline {
+            background-color: transparent !important;
+            border: 1px solid #0097dc !important;
+            color: #0097dc !important;
+            box-shadow: none !important;
+        }
+        [data-theme="dark"] .btn.btn-outline:hover {
+            background-color: rgba(0,151,220,0.1) !important;
+        }
+        /* Secondary (Остановить и др.) */
+        [data-theme="dark"] .btn-secondary,
+        [data-theme="dark"] .btn.btn-secondary {
+            background-color: transparent !important;
+            border: 1px solid #4d545f !important;
+            color: #c2c2c2 !important;
+            box-shadow: none !important;
+        }
+        [data-theme="dark"] .btn.btn-secondary:hover {
+            border-color: #0097dc !important;
+            color: #0097dc !important;
+        }
+        /* + политика / + поле — пунктирная синяя */
+        [data-theme="dark"] .create-policy-btn,
+        [data-theme="dark"] .add-field-btn {
+            background-color: transparent !important;
+            border: 1px dashed #0097dc !important;
+            color: #0097dc !important;
+        }
+        [data-theme="dark"] .create-policy-btn:hover,
+        [data-theme="dark"] .add-field-btn:hover {
+            background-color: rgba(0,151,220,0.08) !important;
+        }
+        /* + GitHub-GA, + geo, + iplist, + по ссылке */
+        [data-theme="dark"] .dashboard-add-buttons button {
+            background-color: transparent !important;
+            border: 1px solid #0097dc !important;
+            color: #0097dc !important;
+            box-shadow: none !important;
+        }
+        [data-theme="dark"] .dashboard-add-buttons button:hover {
+            background-color: rgba(0,151,220,0.1) !important;
+        }
+        /* Сохранить — outline жирный */
+        [data-theme="dark"] #dashboard-save {
+            background-color: transparent !important;
+            border: 2px solid #0097dc !important;
+            color: #0097dc !important;
+            font-weight: 700 !important;
+            box-shadow: none !important;
+        }
+        [data-theme="dark"] #dashboard-save:hover {
+            background-color: rgba(0,151,220,0.1) !important;
+        }
+        /* Отменить — прозрачный, серая рамка */
+        [data-theme="dark"] #dashboard-reset {
+            background-color: transparent !important;
+            border: 1px solid #4d545f !important;
+            color: #949b9f !important;
+            box-shadow: none !important;
+        }
+        [data-theme="dark"] #dashboard-reset:hover {
+            border-color: #6f737b !important;
+            color: #c2c2c2 !important;
         }
 
         /* ── v1.16: Вкладки типа прокси ── */
@@ -707,6 +807,18 @@
         *::-webkit-scrollbar-thumb { background: #c0c0c0; border-radius: 3px; }
         *::-webkit-scrollbar-thumb:hover { background: #2396da; }
         *::-webkit-scrollbar-corner { background: #ebebeb; }
+
+        /* Отступы футера — компактнее */
+        footer { padding: 8px 20px !important; }
+
+        /* Панель кнопок доменов — отступ от левого края */
+        .dashboard-actions-sticky { padding-left: 16px !important; }
+
+        /* Фиксируем высоту на 100vh — footer всегда виден, контент скроллится внутри */
+        html, body { height: 100% !important; overflow: hidden !important; }
+        .container { height: 100% !important; overflow: hidden !important; }
+        .content { overflow: hidden !important; min-height: 0 !important; }
+        .main-content { overflow-y: auto !important; min-height: 0 !important; }
     `;
 
     // ─── Применение темы ─────────────────────────────────────────────────────
@@ -814,13 +926,22 @@
     }
 
     // ─── Заметка в настройках о чекбоксе «Две колонки» ──────────────────────
+    // В Web v1.24+ чекбокс убрали — функция тихо выходит, если его нет.
+    // Оставлена ради совместимости со старыми версиями интерфейса.
     function annotateColumnsCheckbox() {
         if (document.getElementById('keenetic-columns-note')) return;
-        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-        let node;
-        while (node = walker.nextNode()) {
-            if (node.textContent.includes('колонки групп')) break;
-            node = null;
+        // Быстрый пре-чек: если на странице нет секций настроек — не сканируем DOM
+        const sections = document.querySelectorAll('.settings-section');
+        if (!sections.length) return;
+
+        let node = null;
+        for (const sec of sections) {
+            const walker = document.createTreeWalker(sec, NodeFilter.SHOW_TEXT);
+            let n;
+            while ((n = walker.nextNode())) {
+                if (n.textContent.includes('колонки групп')) { node = n; break; }
+            }
+            if (node) break;
         }
         if (!node) return;
         const section = node.parentElement.closest('.settings-section');
@@ -844,6 +965,81 @@
             + 'style="color:#0097dc;text-decoration:none;">@SidYuri</a>'
             + ' этот параметр не используется — применяется динамический адаптивный грид.';
         section.appendChild(note);
+    }
+
+    // ─── Строка версии темы в футере ─────────────────────────────────────────
+    function injectThemeVersionRow() {
+        if (document.getElementById('keenetic-theme-version-row')) return;
+        const footer = document.getElementById('footer-info');
+        if (!footer) return;
+
+        const localVer  = GM_info.script.version;
+        const updateUrl = (GM_info.script.updateURL ||
+            'https://raw.githubusercontent.com/SidYuri/hydra-route-neo-dark-theme/main/hydra-route-neo-dark-theme.user.js');
+        const repoUrl   = 'https://github.com/SidYuri/hydra-route-neo-dark-theme';
+        const tgUrl     = 'https://t.me/SidYuri';
+
+        const row = document.createElement('div');
+        row.id = 'keenetic-theme-version-row';
+        row.className = 'footer-info-row';
+        row.innerHTML =
+            '<span class="footer-info-label">Тема</span>' +
+            '<span class="footer-info-value">' +
+                '<span id="keenetic-theme-version" style="cursor:pointer" title="Проверить обновление">v' + localVer + '</span>' +
+                '<br><span style="font-size:10px;color:#6f737b">' +
+                    '<a href="' + repoUrl + '" target="_blank" style="color:#0097dc;text-decoration:none">в стиле Keenetic</a>' +
+                    ' от <a href="' + tgUrl + '" target="_blank" style="color:#0097dc;text-decoration:none">@SidYuri</a>' +
+                '</span>' +
+            '</span>';
+        footer.appendChild(row);
+
+        const verSpan = row.querySelector('#keenetic-theme-version');
+        let checking = false;
+
+        verSpan.addEventListener('click', () => {
+            if (checking) return;
+            checking = true;
+            verSpan.textContent = 'v' + localVer + ' …';
+
+            fetch(updateUrl + '?_=' + Date.now())
+                .then(r => r.text())
+                .then(src => {
+                    const m = src.match(/@version\s+([\d.]+)/);
+                    if (!m) { verSpan.textContent = 'v' + localVer; checking = false; return; }
+                    const remoteVer = m[1];
+
+                    if (remoteVer === localVer) {
+                        // Версия актуальная
+                        verSpan.innerHTML = 'v' + localVer +
+                            '&nbsp;<span style="color:#25c47a;font-size:11px">(актуальная)</span>';
+                        setTimeout(() => {
+                            verSpan.textContent = 'v' + localVer;
+                            checking = false;
+                        }, 2500);
+                    } else {
+                        // Есть обновление
+                        row.querySelector('#keenetic-update-btn')?.remove();
+                        verSpan.innerHTML = 'v' + localVer + ' → <b style="color:#25c47a">v' + remoteVer + '</b>';
+
+                        const updBtn = document.createElement('span');
+                        updBtn.id = 'keenetic-update-btn';
+                        updBtn.textContent = '↻ обновить';
+                        updBtn.style.cssText = 'margin-left:8px;background:transparent;color:#0097dc;' +
+                            'border:1px solid #0097dc;padding:2px 8px;border-radius:3px;' +
+                            'font-weight:600;font-size:11px;cursor:pointer;white-space:nowrap';
+                        updBtn.addEventListener('click', e => {
+                            e.stopPropagation();
+                            window.open(updateUrl, '_blank');
+                        });
+                        verSpan.parentElement.insertBefore(updBtn, verSpan.nextSibling);
+                        checking = false;
+                    }
+                })
+                .catch(() => {
+                    verSpan.textContent = 'v' + localVer;
+                    checking = false;
+                });
+        });
     }
 
     // ─── Стилизация логотипа в шапке ─────────────────────────────────────────
@@ -916,6 +1112,7 @@
         }
         styleHeaderLogo();
         annotateColumnsCheckbox();
+        injectThemeVersionRow();
     }
 
     if (document.readyState === 'loading') {
@@ -934,6 +1131,7 @@
                 if (!isV116()) addToggleButton();
                 styleHeaderLogo();
                 annotateColumnsCheckbox();
+                injectThemeVersionRow();
             }, 200);
         }
     });
