@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hydra Route Neo — Keenetic Dark Theme
 // @namespace    http://tampermonkey.net/
-// @version      0.13
+// @version      0.14
 // @description  Тёмная тема для Hydra Route Neo в стиле Keenetic. Beta.
 // @author       SidYuri
 // @include      http://192.168.*:2000/*
@@ -814,11 +814,13 @@
         /* Панель кнопок доменов — отступ от левого края */
         .dashboard-actions-sticky { padding-left: 16px !important; }
 
-        /* Фиксируем высоту на 100vh — footer всегда виден, контент скроллится внутри */
-        html, body { height: 100% !important; overflow: hidden !important; }
-        .container { height: 100% !important; overflow: hidden !important; }
-        .content { overflow: hidden !important; min-height: 0 !important; }
-        .main-content { overflow-y: auto !important; min-height: 0 !important; }
+        /* Фиксируем высоту на 100vh — footer всегда виден, контент скроллится внутри (только десктоп) */
+        @media (min-width: 769px) {
+            html, body { height: 100% !important; overflow: hidden !important; }
+            .container { height: 100% !important; overflow: hidden !important; }
+            .content { overflow: hidden !important; min-height: 0 !important; }
+            .main-content { overflow-y: auto !important; min-height: 0 !important; }
+        }
     `;
 
     // ─── Применение темы ─────────────────────────────────────────────────────
